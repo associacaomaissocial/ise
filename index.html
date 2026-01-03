@@ -4,18 +4,53 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Índice de Sustentabilidade Económica (ISE)</title>
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
+
 <body>
   <header class="topbar">
     <h1>Índice de Sustentabilidade Económica (ISE)</h1>
-    <p>Mapa interativo — cinzento = não avaliado.</p>
+    <p class="subtitle">Mapa interativo — cinzento = não avaliado.</p>
   </header>
 
-  <div id="map"></div>
+  <main class="layout">
+    <section class="map-wrap">
+      <div id="map" aria-label="Mapa ISE"></div>
+    </section>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="app-v2.js"></script>
+    <aside id="panel" class="panel" aria-label="Painel do país">
+      <div class="panel__header">
+        <div>
+          <div class="panel__title" id="panelTitle">Seleciona um país</div>
+          <div class="panel__meta" id="panelMeta">Clica num país para ver detalhes.</div>
+        </div>
+        <button class="panel__close" id="panelClose" type="button" aria-label="Fechar">✕</button>
+      </div>
+
+      <div class="panel__body" id="panelBody">
+        <div class="panel__hint">
+          Dica: passa o rato para ver o tooltip, e clica para abrir o painel.
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <script src="app.js"></script>
 </body>
 </html>

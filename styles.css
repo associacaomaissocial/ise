@@ -1,15 +1,115 @@
+/* Base */
 * { box-sizing: border-box; }
-html, body { height: 100%; margin: 0; font-family: system-ui, Arial, sans-serif; }
-
-.topbar {
-  padding: 14px 16px;
-  border-bottom: 1px solid #e5e7eb;
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #111827;
+  background: #ffffff;
 }
 
-/* FORÇA o mapa a existir */
+.topbar { padding: 18px 18px 10px; }
+.topbar h1 { margin: 0 0 6px; font-size: 32px; }
+.subtitle { margin: 0; color: #374151; }
+
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 0;
+  align-items: stretch;
+}
+
+.map-wrap { min-height: 640px; padding: 0 18px 18px; }
 #map {
-  height: calc(100vh - 92px) !important;
-  min-height: 600px !important;
-  width: 100% !important;
-  background: #f3f4f6 !important; /* cinzento para veres a área */
+  height: 640px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Painel lateral */
+.panel {
+  border-left: 1px solid #e5e7eb;
+  padding: 14px;
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 0px);
+  overflow: auto;
+  background: #fff;
+}
+
+.panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.panel__title { font-weight: 800; font-size: 18px; }
+.panel__meta { font-size: 13px; color: #4b5563; margin-top: 2px; }
+
+.panel__close {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.panel__close:hover { background: #f3f4f6; }
+
+.panel__body { font-size: 14px; }
+.panel__hint {
+  padding: 10px;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
+  color: #4b5563;
+  background: #fafafa;
+}
+
+/* Cartões no painel */
+.card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 10px 0;
+  background: #fff;
+}
+.card h3 { margin: 0 0 6px; font-size: 14px; }
+.kv { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; }
+.kv div { padding: 6px 0; border-bottom: 1px solid #f3f4f6; }
+.kv div:last-child, .kv div:nth-last-child(2) { border-bottom: none; }
+
+/* Legenda Leaflet */
+.legend {
+  background: #fff;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  line-height: 1.2;
+  font-size: 12px;
+}
+.legend h4 { margin: 0 0 8px; font-size: 12px; }
+.legend .row { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+.legend i { width: 12px; height: 12px; display: inline-block; border: 1px solid rgba(0,0,0,.15); }
+
+/* ✅ Remove a “caixa preta” ao clicar (focus outline) */
+.leaflet-container { outline: none !important; }
+#map:focus { outline: none !important; }
+.leaflet-container *:focus { outline: none !important; }
+
+/* Responsivo */
+@media (max-width: 980px) {
+  .layout { grid-template-columns: 1fr; }
+  .panel {
+    position: relative;
+    height: auto;
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
+  }
 }

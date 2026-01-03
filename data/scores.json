@@ -1,4 +1,21 @@
 {
-  "PRT": 52,
-  "ESP": 58
+  "PRT": {
+    "name": "Portugal",
+    "score": 52,
+    "pillars": {
+      "Estado Social": 70,
+      "Regulação e Mercado": 58,
+      "Estrutura Produtiva": 45,
+      "Sustentabilidade Intergeracional": 42
+    },
+    "short": "Portugal apresenta uma estrutura económica intermédia…",
+    "full": "Texto longo completo…"
+  },
+  "ESP": {
+    "name": "Espanha",
+    "score": 56,
+    "pillars": { "...": 0 },
+    "short": "...",
+    "full": "..."
+  }
 }
