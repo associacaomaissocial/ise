@@ -6,9 +6,10 @@ html, body { height: 100%; margin: 0; font-family: system-ui, Arial, sans-serif;
   border-bottom: 1px solid #e5e7eb;
 }
 
-/* ISTO é o mais importante: altura real para o Leaflet desenhar */
+/* FORÇA o mapa a existir */
 #map {
-  height: calc(100vh - 92px);
-  min-height: 500px;
-  width: 100%;
+  height: calc(100vh - 92px) !important;
+  min-height: 600px !important;
+  width: 100% !important;
+  background: #f3f4f6 !important; /* cinzento para veres a área */
 }
