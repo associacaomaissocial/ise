@@ -5,6 +5,8 @@ document.body.insertAdjacentHTML(
   </div>`
 );
 
+let scores = {};
+
 function getColor(score) {
   return score >= 80 ? "#1a9850" :
          score >= 70 ? "#66bd63" :
@@ -19,47 +21,41 @@ window.addEventListener("DOMContentLoaded", async () => {
   const mapDiv = document.getElementById("map");
 
   if (!mapDiv) {
-    document.body.insertAdjacentHTML(
-      "beforeend",
-      `<div style="position:fixed;top:40px;left:10px;z-index:99999;background:#fff;border:2px solid #ef4444;padding:6px 8px;border-radius:8px;font-size:12px">
-        ERRO: não existe &lt;div id="map"&gt; ❌
-      </div>`
-    );
+    alert("ERRO: não existe <div id='map'>");
     return;
   }
 
-  // IMPORTANTÍSSIMO: o Leaflet precisa de altura
   mapDiv.style.height = "600px";
 
-  // Cria o mapa
+  // 1️⃣ Criar o mapa PRIMEIRO
   const map = L.map("map").setView([20, 0], 2);
-
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 6,
     attribution: "&copy; OpenStreetMap"
   }).addTo(map);
 
-  // Carrega scores e geojson em paralelo (e espera pelos dois)
+  // 2️⃣ Carregar dados
   const [scoresRes, geoRes] = await Promise.all([
     fetch("data/scores.json"),
     fetch("data/world.geojson")
   ]);
 
-  const scores = await scoresRes.json();
+  const scoresData = await scoresRes.json();
   const geojson = await geoRes.json();
+  scores = scoresData;
 
-  console.log("Scores carregados:", scores);
+  console.log("Scores:", scores);
+  console.log("GeoJSON carregado");
 
-  // Adiciona o GeoJSON já com scores disponíveis
+  // 3️⃣ Adicionar GeoJSON AO MAPA EXISTENTE
   L.geoJSON(geojson, {
-    style: (feature) => {
+    style: feature => {
       const iso = feature.properties["ISO3166-1-Alpha-3"];
       const score = scores[iso];
 
       return {
-        fillColor: (score !== undefined && score !== null) ? getColor(score) : "#cccccc",
+        fillColor: score ? getColor(score) : "#cccccc",
         weight: 0.6,
-        opacity: 1,
         color: "#555",
         fillOpacity: 0.8
       };
@@ -69,7 +65,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       const score = scores[iso];
 
       layer.bindTooltip(
-        `<strong>${feature.properties.name}</strong><br>ISE: ${score ?? "Não avaliado"}`,
+        `<strong>${feature.properties.name}</strong><br>
+         ISE: ${score ?? "Não avaliado"}`,
         { sticky: true }
       );
     }
